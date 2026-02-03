@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Valentine Invitation 💖</title>
+<title>Valentine Invitation 💕</title>
 
 <style>
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
-    color: white;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffd1dc, #e0bbff);
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,30 +17,32 @@ body {
 }
 
 .card {
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.6);
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 25px;
     text-align: center;
-    max-width: 400px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-width: 420px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    position: relative;
 }
 
 h1 {
+    color: #ff4d6d;
     font-size: 2.5em;
-    margin-bottom: 10px;
 }
 
 p {
+    color: #6a0572;
     font-size: 1.1em;
 }
 
 button {
-    margin: 15px;
-    padding: 12px 25px;
+    padding: 12px 28px;
     border: none;
-    border-radius: 25px;
+    border-radius: 30px;
     font-size: 1em;
     cursor: pointer;
+    margin: 10px;
     transition: 0.3s;
 }
 
@@ -52,6 +54,7 @@ button {
 .no {
     background: white;
     color: #ff4d6d;
+    position: absolute;
 }
 
 button:hover {
@@ -60,7 +63,48 @@ button:hover {
 
 #message {
     margin-top: 20px;
-    font-size: 1.2em;
+    font-size: 1.3em;
+    color: #ff4d6d;
+}
+
+/* Floating Hearts */
+.heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: pink;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
 }
 </style>
 </head>
@@ -68,25 +112,81 @@ button:hover {
 <body>
 
 <div class="card">
-    <h1>💘 Hi, [Name] 💘</h1>
-    <p>Will you be my Valentine on <b>February 14</b>? 🌹</p>
+    <h1>💖 Hi, BAB! 💖</h1>
+    <p>Will you be my Valentine this February 14? 🌸</p>
 
-    <button class="yes" onclick="yesClick()">YES 💖</button>
-    <button class="no" onclick="noClick()">NO 😢</button>
+    <button class="yes" onclick="yesClick()">YES 💕</button>
+    <button class="no" id="noBtn">NO 🙈</button>
 
     <div id="message"></div>
 </div>
 
+<audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-function yesClick() {
-    document.getElementById("message").innerHTML =
-    "Yay! 💕 I can’t wait to spend Valentine’s with you 😍";
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+function moveButton() {
+    const card = document.querySelector(".card");
+
+    const maxX = card.clientWidth - noBtn.clientWidth;
+    const maxY = card.clientHeight - noBtn.clientHeight;
+
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
 }
 
-function noClick() {
+// YES click with confetti
+function yesClick() {
     document.getElementById("message").innerHTML =
-    "Are you sure? 🥺 Try clicking YES again 💘";
+        "Yay! 💗 You said YES! 💐🎉";
+
+    for (let i = 0; i < 150; i++) {
+        createConfetti();
+    }
 }
+
+// Create confetti
+function createConfetti() {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.background = randomColor();
+    confetti.style.animationDuration = (2 + Math.random() * 2) + "s";
+
+    document.body.appendChild(confetti);
+
+    setTimeout(() => confetti.remove(), 4000);
+}
+
+// Random pastel confetti colors
+function randomColor() {
+    const colors = ["#ffb3c6", "#ffd6e0", "#e0bbff", "#cdb4db", "#ffc8dd"];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+// Floating hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7000);
+}
+
+setInterval(createHeart, 300);
 </script>
 
 </body>
