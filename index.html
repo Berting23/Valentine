@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Invitation 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    background: rgba(255,255,255,0.15);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.1em;
+}
+
+button {
+    margin: 15px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.yes {
+    background: #ff4d6d;
+    color: white;
+}
+
+.no {
+    background: white;
+    color: #ff4d6d;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>💘 Hi, [Name] 💘</h1>
+    <p>Will you be my Valentine on <b>February 14</b>? 🌹</p>
+
+    <button class="yes" onclick="yesClick()">YES 💖</button>
+    <button class="no" onclick="noClick()">NO 😢</button>
+
+    <div id="message"></div>
+</div>
+
+<script>
+function yesClick() {
+    document.getElementById("message").innerHTML =
+    "Yay! 💕 I can’t wait to spend Valentine’s with you 😍";
+}
+
+function noClick() {
+    document.getElementById("message").innerHTML =
+    "Are you sure? 🥺 Try clicking YES again 💘";
+}
+</script>
+
+</body>
+</html>
